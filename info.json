@@ -1,0 +1,9 @@
+{
+	"name": "Sensors",
+	"version": "0.0.1",
+	"title": "Sensors",
+	"author": "Johan Paulsson",
+	"homepage": "https://github.com/gnzzz/Factorio-Sensors",
+	"dependencies": ["base > 0.11"],
+	"description": "A collection of sensors"
+}
