@@ -1,11 +1,5 @@
---entity
-require("prototypes.entity.entities")
-
---items
-require("prototypes.item.items")
-
---recipies
-require("prototypes.recipe.recipes")
-
---tech
-require("prototypes.tech.tech")
+--Rail Sensor
+require("prototypes.entity.rail-sensor.entities")
+require("prototypes.item.rail-sensor.items")
+require("prototypes.recipe.rail-sensor.recipes")
+require("prototypes.tech.rail-sensor.tech")
