@@ -10,6 +10,11 @@ Sensor = class(function(class,parent,data)
 		class.issensor = data.issensor
 		class.valid = data.valid
 	end
+	
+	if( parent ~= nil) then
+		Sensor:registerSensorParent(parent.name)
+	end
+	
 	return class
 end)
 
@@ -18,7 +23,7 @@ function Sensor:updateSensor()
 end
 
 function Sensor:createProxy(parent, proxyType, makeOperable)
-	--debugLog("Creating new sensor proxy")
+	debugLog("Creating new sensor proxy of type " .. proxyType)
 	
 	if makeOperable == nil then
 		makeOperable = false
@@ -27,8 +32,8 @@ function Sensor:createProxy(parent, proxyType, makeOperable)
 	local proxy = {}
 	if parent ~= nil and parent.valid then
 		local proxyPosition = parent.position
-		debugLog("**PROXY x: " .. proxyPosition.x .. " y: " .. proxyPosition.y)
-		debugLog("**PARENT x: " .. parent.position.x .. " y: " .. parent.position.y)
+--		debugLog("**PROXY x: " .. proxyPosition.x .. " y: " .. proxyPosition.y)
+--		debugLog("**PARENT x: " .. parent.position.x .. " y: " .. parent.position.y)
 		debugLog("Creating " .. proxyType .. " at " .. proxyPosition.x .. " " .. proxyPosition.y)
 		
 		game.createentity{name=proxyType, position=proxyPosition, force=game.player.force}
@@ -69,13 +74,17 @@ function getItemDifference(item, syncFromItemCount, syncToItemCount)
 	return 0
 end
 
-function Sensor:remove()
-	Sensor:emptyProxy(self)
-	self.proxy.destroy()
+function Sensor:registerSensorParent(name)
+	glob.sensorNames = glob.sensorNames or {}
+	
+	if(glob.sensorNames[name] == nil) then
+		debugLog("Got a new sensor type: " .. name)
+		glob.sensorNames[name] = true
+	end
 end
 
-function debugLog(message)
-	if true then -- set for debug
-		game.player.print(message)
-	end
+function Sensor:remove()
+	debugLog("Trying to remove sensor")
+	Sensor:emptyProxy(self)
+	self.proxy.destroy()
 end

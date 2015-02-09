@@ -1,12 +1,16 @@
+-- Debug functions needs to be in global scope to be able to be called from the classes
+
+function debugLog(message)
+	if true then -- set for debug
+		game.player.print(math.floor(game.tick / 60) .. " : " .. message)
+	end
+end
+
+--
+
 module(..., package.seeall)
 require "defines"
 require "util"
-
-function debugLog(message)
-	if false then -- set for debug
-		game.player.print(message)
-	end
-end
 
 require "class"
 require "sensors.sensor"
@@ -70,17 +74,22 @@ end
 
 function onentityremoved(event)
 	debugLog("Event: " .. serpent.dump(event))
-  local entity = event.entity
-  if entity.name == "rail-sensor" then
---	debugLog(serpent.dump(glob.sensors))
-	debugLog("Rail sensor removed!")
-	local sensorPos = findSensorPosition(entity)
-	debugLog("Senser pos: "..sensorPos)
-	local sensor = table.remove(glob.sensors, sensorPos)
-	debugLog("Sensor: " .. serpent.dump(sensor))
-	sensor:remove()
---    table.insert(glob.sensors, RailSensor(entity))
-  end
+	local entity = event.entity
+	if isKnownSensor(entity.name) then
+		debugLog("A sensor was removed!")
+		local sensorPos = findSensorPosition(entity)
+		debugLog("Senser pos: "..sensorPos)
+		local sensor = table.remove(glob.sensors, sensorPos)
+		debugLog("Sensor: " .. serpent.dump(sensor))
+		sensor:remove()
+	end
+end
+
+function isKnownSensor(entity_name)
+	debugLog("Registered sensor names: " .. serpent.dump(glob.sensorNames))
+	if( glob.sensorNames[entity_name] ~= nil ) then
+		return true
+	end
 end
 
 function findSensorPosition(entity)
