@@ -23,10 +23,19 @@ data:extend(
   {
     type = "item",
     name = "cargo-capacity",
-    icon = "__base__/graphics/icons/wooden-chest.png",
+    icon = "__Sensors__/graphics/icons/cargo-capacity.png",
     flags = {"goes-to-quickbar"},
-    subgroup = "transport",
-    order = "a[train-system]",
+    subgroup = "sensors-metaitems-rail",
+    order = "a[sensors-metaitems]-a[rail-sensor]",
     stack_size = 100
+  },
+  {
+    type = "item",
+    name = "train-speed",
+    icon = "__Sensors__/graphics/icons/train-speed.png",
+    flags = {"goes-to-quickbar"},
+    subgroup = "sensors-metaitems-rail",
+    order = "a[sensors-metaitems]",
+    stack_size = 10000
   }
 })

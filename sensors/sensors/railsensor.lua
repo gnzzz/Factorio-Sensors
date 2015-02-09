@@ -73,7 +73,7 @@ function RailSensor:copyInventoryToProxy(entity)
 	local maxSlots = self:getMaxInventory(entity)
 	self:addToProxy("cargo-capacity",math.floor((loadedStacks/maxSlots)*100))
 	
-	debugLog("Adding speed meta item. Current speed: " .. entity.train.speed)
+--	debugLog("Adding speed meta item. Current speed: " .. entity.train.speed)
 	self:addToProxy("train-speed",math.floor(math.abs(entity.train.speed)*1000))
 end
 

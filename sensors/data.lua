@@ -1,3 +1,6 @@
+-- Group definition
+require("prototypes.itemgroup.sensors")
+
 --Rail Sensor
 require("prototypes.entity.rail-sensor.entities")
 require("prototypes.item.rail-sensor.items")
