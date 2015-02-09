@@ -60,18 +60,10 @@ function Sensor:emptyProxy(sensor)
 	end
 end
 
-function getItemDifference(item, syncFromItemCount, syncToItemCount)
-	if syncFromItemCount == nil then
-		if syncToItemCount ~= nil then
-			return 0 - syncToItemCount
-		end
-	elseif syncToItemCount == nil then 
-		return syncFromItemCount
-	else
-		return syncFromItemCount - syncToItemCount
+function Sensor:addToProxy(entityName,amount)
+	if self.proxy ~= nil and amount > 0 then
+		self.proxy.getinventory(1).insert({name=entityName,count=amount})
 	end
-	
-	return 0
 end
 
 function Sensor:registerSensorParent(name)

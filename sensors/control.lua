@@ -87,7 +87,7 @@ end
 
 function isKnownSensor(entity_name)
 	debugLog("Registered sensor names: " .. serpent.dump(glob.sensorNames))
-	if( glob.sensorNames[entity_name] ~= nil ) then
+	if( glob.sensorNames ~= nil and glob.sensorNames[entity_name] ~= nil ) then
 		return true
 	end
 end

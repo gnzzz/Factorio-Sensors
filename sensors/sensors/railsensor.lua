@@ -65,7 +65,43 @@ end
 function RailSensor:copyInventoryToProxy(entity)
 	--debugLog("Placing inventory in sensor")
 	
-	self:copyInventory(entity.getinventory(1),self.proxy.getinventory(1),entity.name)
+	self:copyInventory(entity.getinventory(1),self.proxy.getinventory(1))
+	
+	self:addToProxy(entity.name,1)
+	
+	local loadedStacks = self:getLoadedStacks(entity.getinventory(1))
+	local maxSlots = self:getMaxInventory(entity)
+	
+	self:addToProxy("cargo-capacity",math.floor((loadedStacks/maxSlots)*100))
+end
+
+function RailSensor:getStackSize(itemName)
+	glob.stackSizes = glob.stackSizes or {}
+	
+	if(glob.stackSizes[itemName]) then
+		return glob.stackSizes[itemName]
+	end
+	
+	for name,prototype in pairs(game.itemprototypes) do
+		if(name == itemName) then
+			glob.stackSizes[itemName] = prototype.stacksize
+			return glob.stackSizes[itemName]
+		end
+	end
+end
+
+function RailSensor:getLoadedStacks(inventory)
+	local stacks = 0.0
+	
+	if inventory ~= nil then
+		local contents = inventory.getcontents()
+		for name,count in pairs(contents) do
+			local stackSize = self:getStackSize(name)
+			stacks = stacks + count/stackSize
+		end
+	end
+	
+	return stacks
 end
 
 function RailSensor:copyInventory(copyFrom, copyTo, entityName)
@@ -73,9 +109,8 @@ function RailSensor:copyInventory(copyFrom, copyTo, entityName)
 		local action = {}
 		local fromContents = copyFrom.getcontents()
 		local toContents = copyTo.getcontents()
-		local hasEntity = false
 		for name,count in pairs(fromContents) do
-				local diff = getItemDifference(name,fromContents[name], toContents[name])
+				local diff = self:getItemDifference(name,fromContents[name], toContents[name])
 				if diff ~= 0 then
 					action[name] = diff
 				end	
@@ -83,17 +118,8 @@ function RailSensor:copyInventory(copyFrom, copyTo, entityName)
 				
 		for name,count in pairs(toContents) do
 				if fromContents[name] == nul then
-					action[name] = getItemDifference(name,fromContents[name],toContents[name])
+					action[name] = self:getItemDifference(name,fromContents[name],toContents[name])
 				end
-				
-				if name == entityName then
-					hasEntity = true
-					action[name] = 0
-				end
-		end
-		
-		if entityName ~= nil and not hasEntity then
-			action[entityName] = 1
 		end
 
 		for name,diff in pairs(action) do
@@ -104,5 +130,29 @@ function RailSensor:copyInventory(copyFrom, copyTo, entityName)
 				copyTo.remove({name=name,count=0-diff})
 			end
 		end
+	end
+end
+
+function RailSensor:getItemDifference(item, syncFromItemCount, syncToItemCount)
+	if syncFromItemCount == nil then
+		if syncToItemCount ~= nil then
+			return 0 - syncToItemCount
+		end
+	elseif syncToItemCount == nil then 
+		return syncFromItemCount
+	else
+		return syncFromItemCount - syncToItemCount
+	end
+	
+	return 0
+end
+
+-- This returns the number of inventory stacks the entity can have. 
+-- Since this is hardcoded then it will only work for the cargo containers that are placed here
+function RailSensor:getMaxInventory(entity)
+	if entity.type == "locomotive" then
+		return 3
+	elseif entity.type == "cargo-wagon" then
+		return 20
 	end
 end
