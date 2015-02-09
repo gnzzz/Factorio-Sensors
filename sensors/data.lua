@@ -18,3 +18,9 @@ require("prototypes.entity.standing-rail-sensor.entities")
 require("prototypes.item.standing-rail-sensor.items")
 require("prototypes.recipe.standing-rail-sensor.recipes")
 require("prototypes.tech.standing-rail-sensor.tech")
+
+--Daylight Sensor
+require("prototypes.entity.daylight-sensor.entities")
+require("prototypes.item.daylight-sensor.items")
+require("prototypes.recipe.daylight-sensor.recipes")
+require("prototypes.tech.daylight-sensor.tech")

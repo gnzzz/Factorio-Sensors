@@ -12,5 +12,11 @@ data:extend(
     name = "sensors-metaitems-rail",
     group = "sensors-metaitems",
     order = "a",
+  },
+  {
+    type = "item-subgroup",
+    name = "sensors-metaitems-light",
+    group = "sensors-metaitems",
+    order = "a",
   }
 })

@@ -14,9 +14,14 @@ require "util"
 
 require "class"
 require "sensors.sensor"
+
+-- Rail sensors
 require "sensors.railsensor"
 require "sensors.movingrailsensor"
 require "sensors.standingrailsensor"
+
+-- Daylight sensor
+require "sensors.daylightsensor"
 
 -- Initialisation
 game.oninit(function() oninit() end)
@@ -77,6 +82,8 @@ function onbuiltentity(event)
 		table.insert(glob.sensors, MovingRailSensor(entity))
 	elseif entity.name == "standing-rail-sensor" then
 		table.insert(glob.sensors, StandingRailSensor(entity))
+	elseif entity.name == "daylight-sensor" then
+		table.insert(glob.sensors, DaylightSensor(entity))
 	end
 end
 
