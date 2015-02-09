@@ -27,9 +27,9 @@ function Sensor:createProxy(parent, proxyType, makeOperable)
 	local proxy = {}
 	if parent ~= nil and parent.valid then
 		local proxyPosition = parent.position
---		--debugLog("**PROXY x: " .. proxyPosition.x .. " y: " .. proxyPosition.y)
---		--debugLog("**PARENT x: " .. parent.position.x .. " y: " .. parent.position.y)
-		--debugLog("Creating " .. proxyType .. " at " .. proxyPosition.x .. " " .. proxyPosition.y)
+		debugLog("**PROXY x: " .. proxyPosition.x .. " y: " .. proxyPosition.y)
+		debugLog("**PARENT x: " .. parent.position.x .. " y: " .. parent.position.y)
+		debugLog("Creating " .. proxyType .. " at " .. proxyPosition.x .. " " .. proxyPosition.y)
 		
 		game.createentity{name=proxyType, position=proxyPosition, force=game.player.force}
 		proxysearch = game.findentitiesfiltered{area = {{proxyPosition.x - 1, proxyPosition.y - 1}, {proxyPosition.x + 1, proxyPosition.y + 1}}, name=proxyType} 
@@ -72,4 +72,10 @@ end
 function Sensor:remove()
 	Sensor:emptyProxy(self)
 	self.proxy.destroy()
+end
+
+function debugLog(message)
+	if true then -- set for debug
+		game.player.print(message)
+	end
 end

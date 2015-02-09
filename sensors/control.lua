@@ -2,9 +2,16 @@ module(..., package.seeall)
 require "defines"
 require "util"
 
+function debugLog(message)
+	if true then -- set for debug
+		game.player.print(message)
+	end
+end
+
 require "class"
 require "sensors.sensor"
 require "sensors.railsensor"
+require "sensors.movingrailsensor"
 
 game.oninit(function() oninit() end)
 game.onload(function() onload() end)
@@ -33,6 +40,8 @@ function onload()
 			--glob.sensors[i] = RailSensor(asensor.parent,asensor)
 		elseif asensor.sensortype == "RailSensor" then
 			glob.sensors[i] = RailSensor(asensor.parent,asensor)
+		elseif asensor.sensortype == "MovingRailSensor" then
+			glob.sensors[i] = MovingRailSensor(asensor.parent,asensor)
 		end
 	end
 end
@@ -48,9 +57,9 @@ end
 function onbuiltentity(event)
   local entity = event.createdentity
   if entity.name == "rail-sensor" then
-	debugLog(serpent.dump(glob.sensors))
---	debugLog("new sensor!")
     table.insert(glob.sensors, RailSensor(entity))
+  elseif entity.name == "moving-rail-sensor" then
+    table.insert(glob.sensors, MovingRailSensor(entity))
   end
 end
 
@@ -77,8 +86,4 @@ function findSensorPosition(entity)
 	end
 end
 
-function debugLog(message)
-	if false then -- set for debug
-		game.player.print(message)
-	end
-end
+

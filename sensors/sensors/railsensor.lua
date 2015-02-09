@@ -1,8 +1,8 @@
 -- Rail sensor 
 
 RailSensor = class(Sensor, function (class,parent,data)
-	--debugLog("Creating new rail sensor")
-	Sensor.init(class,parent,data)
+	debugLog("Creating new rail sensor")
+	class = Sensor.init(class,parent,data)
 	class.sensortype = "RailSensor"
 
 	if(data == nil) then

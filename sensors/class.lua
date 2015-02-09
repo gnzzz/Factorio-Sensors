@@ -26,7 +26,7 @@ function class(base, init)
    else 
       -- make sure that any stuff from the base class is initialized!
       if base and base.init then
-      base.init(obj, ...)
+	      base.init(obj, ...)
       end
    end
    return obj
