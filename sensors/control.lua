@@ -3,7 +3,7 @@ require "defines"
 require "util"
 
 function debugLog(message)
-	if true then -- set for debug
+	if false then -- set for debug
 		game.player.print(message)
 	end
 end
