@@ -52,10 +52,10 @@ data:extend(
     inventory_size = 48,
     picture =
     {
-      filename = "__Sensors__/graphics/trans.png",
+      filename = "__Sensors__/graphics/rail-sensor/sensor.png",
       priority = "very-low",
-      width = 1,
-      height = 1,
+      width = 32,
+      height = 32,
       shift = {0, 0}
     },
     connection_point =
