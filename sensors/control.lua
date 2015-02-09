@@ -18,13 +18,20 @@ require "sensors.railsensor"
 require "sensors.movingrailsensor"
 require "sensors.standingrailsensor"
 
+-- Initialisation
 game.oninit(function() oninit() end)
 game.onload(function() onload() end)
 
+-- Entity was placed on map
 game.onevent(defines.events.onbuiltentity, function(event) onbuiltentity(event) end)
+game.onevent(defines.events.onrobotbuiltentity, function(event) onbuiltentity(event) end)
+
+-- Entity item was removed from the map
 game.onevent(defines.events.onentitydied, function(event) onentityremoved(event) end)
 game.onevent(defines.events.onpreplayermineditem, function(event) onentityremoved(event) end)
+game.onevent(defines.events.onrobotpremined, function(event) onentityremoved(event) end)
 
+-- Main loop
 game.onevent(defines.events.ontick, function(event) ontick(event) end)
 
 
@@ -62,18 +69,19 @@ function ontick(event)
 end
 
 function onbuiltentity(event)
-  local entity = event.createdentity
-  if entity.name == "rail-sensor" then
-    table.insert(glob.sensors, RailSensor(entity))
-  elseif entity.name == "moving-rail-sensor" then
-    table.insert(glob.sensors, MovingRailSensor(entity))
-  elseif entity.name == "standing-rail-sensor" then
-    table.insert(glob.sensors, StandingRailSensor(entity))
-  end
+--	debugLog("Build event: " .. serpent.dump(event))
+	local entity = event.createdentity
+	if entity.name == "rail-sensor" then
+		table.insert(glob.sensors, RailSensor(entity))
+	elseif entity.name == "moving-rail-sensor" then
+		table.insert(glob.sensors, MovingRailSensor(entity))
+	elseif entity.name == "standing-rail-sensor" then
+		table.insert(glob.sensors, StandingRailSensor(entity))
+	end
 end
 
 function onentityremoved(event)
-	debugLog("Event: " .. serpent.dump(event))
+--	debugLog("Removal event: " .. serpent.dump(event))
 	local entity = event.entity
 	if isKnownSensor(entity.name) then
 		debugLog("A sensor was removed!")
