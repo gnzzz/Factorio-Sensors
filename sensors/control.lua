@@ -12,6 +12,7 @@ require "class"
 require "sensors.sensor"
 require "sensors.railsensor"
 require "sensors.movingrailsensor"
+require "sensors.standingrailsensor"
 
 game.oninit(function() oninit() end)
 game.onload(function() onload() end)
@@ -42,6 +43,8 @@ function onload()
 			glob.sensors[i] = RailSensor(asensor.parent,asensor)
 		elseif asensor.sensortype == "MovingRailSensor" then
 			glob.sensors[i] = MovingRailSensor(asensor.parent,asensor)
+		elseif asensor.sensortype == "StandingRailSensor" then
+			glob.sensors[i] = StandingRailSensor(asensor.parent,asensor)
 		end
 	end
 end
@@ -60,6 +63,8 @@ function onbuiltentity(event)
     table.insert(glob.sensors, RailSensor(entity))
   elseif entity.name == "moving-rail-sensor" then
     table.insert(glob.sensors, MovingRailSensor(entity))
+  elseif entity.name == "standing-rail-sensor" then
+    table.insert(glob.sensors, StandingRailSensor(entity))
   end
 end
 

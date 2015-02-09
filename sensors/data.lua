@@ -10,3 +10,8 @@ require("prototypes.item.moving-rail-sensor.items")
 require("prototypes.recipe.moving-rail-sensor.recipes")
 require("prototypes.tech.moving-rail-sensor.tech")
 
+--Standing Rail Sensor
+require("prototypes.entity.standing-rail-sensor.entities")
+require("prototypes.item.standing-rail-sensor.items")
+require("prototypes.recipe.standing-rail-sensor.recipes")
+require("prototypes.tech.standing-rail-sensor.tech")

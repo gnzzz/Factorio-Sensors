@@ -1,9 +1,9 @@
 -- Rail sensor 
 
-MovingRailSensor = class(RailSensor, function (class,parent,data)
-	debugLog("Creating new moving rail sensor")
+StandingRailSensor = class(RailSensor, function (class,parent,data)
+	debugLog("Creating new standing rail sensor")
 	class = Sensor.init(class,parent,data)
-	class.sensortype = "MovingRailSensor"
+	class.sensortype = "StandingRailSensor"
 	
 	if(data == nil) then
 		if parent ~= nil then	
@@ -26,7 +26,7 @@ MovingRailSensor = class(RailSensor, function (class,parent,data)
 	return class
 end)
 
-function MovingRailSensor:updateSensor()
+function StandingRailSensor:updateSensor()
 	--debugLog("Updating Rail sensor")
 
 	local searchArea = 1
@@ -37,7 +37,7 @@ function MovingRailSensor:updateSensor()
 	local noValidTypes = true
 	for i, entity in pairs(entities) do
 		if(self:knownTypes(entity.type)) then
-			if(entity.train.speed > 0) then
+			if(entity.train.speed == 0) then
 				noValidTypes = false
 				--debugLog("Found item " .. i .. ": "..serpent.dump(item.type))
 				--debugLog(serpent.dump(self))
@@ -51,7 +51,7 @@ function MovingRailSensor:updateSensor()
 	end
 end
 
-function MovingRailSensor:createProxy(parent)
-	local proxyType = "smart-chest-moving-rail-sensor"
+function StandingRailSensor:createProxy(parent)
+	local proxyType = "smart-chest-standing-rail-sensor"
 	return Sensor:createProxy(parent, proxyType)
 end
