@@ -6,7 +6,7 @@ ElectricalActuator = class(Actuator, function(class,parent,data)
 	
 	if(data == nil) then
 		class.parent = parent
-		class.connection = class:createConnection(parent,"electrical-actuator-connection", {["x"] = 0, ["y"] = 0})
+		class.connection = class:createConnection(parent,"electrical-actuator-connection", {["x"] = 0, ["y"] = -1})
 		class.connected = true
 		class.neighbours = parent.neighbours
 	else
