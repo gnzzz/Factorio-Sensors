@@ -1,7 +1,7 @@
 -- Debug functions needs to be in global scope to be able to be called from the classes
 
 function debugLog(message)
-	if true then -- set for debug
+	if false then -- set for debug
 		game.player.print(math.floor(game.tick / 60) .. " : " .. message)
 	end
 end
