@@ -13,10 +13,10 @@ data:extend(
   {
     type = "item",
     name = "electrical-actuator",
-    icon = "__base__/graphics/icons/smart-chest.png",
+    icon = "__base__/graphics/icons/medium-electric-pole.png",
     flags = {"goes-to-quickbar"},
-    subgroup = "storage",
-    order = "a[items]-d[smart-chest]",
+    subgroup = "energy-pipe-distribution",
+    order = "a[energy]-b[medium-electric-pole]",
     place_result = "electrical-actuator",
     stack_size = 50
   }
