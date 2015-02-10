@@ -14,6 +14,7 @@ require "util"
 
 require "class"
 require "sensors.sensor"
+require "actuators.actuator"
 
 -- Rail sensors
 require "sensors.railsensor"
@@ -22,6 +23,9 @@ require "sensors.standingrailsensor"
 
 -- Daylight sensor
 require "sensors.daylightsensor"
+
+-- Electrical Actuator
+require "actuators.electricalactuator"
 
 -- Initialisation
 game.oninit(function() oninit() end)
@@ -43,11 +47,13 @@ game.onevent(defines.events.ontick, function(event) ontick(event) end)
 function oninit()
 	debugLog("init")
 	glob.sensors = glob.sensors or {}
+	glob.actuators = glob.actuators or {}
 end
 
 function onload()
 	debugLog("load")
 	glob.sensors = glob.sensors or {}
+	glob.actuators = glob.actuators or {}
 	
 	for i,asensor in pairs(glob.sensors) do	
 --		debugLog("Loaded sensor: " .. i .. " - " .. serpent.dump(asensor))
@@ -61,6 +67,18 @@ function onload()
 			glob.sensors[i] = MovingRailSensor(asensor.parent,asensor)
 		elseif asensor.sensortype == "StandingRailSensor" then
 			glob.sensors[i] = StandingRailSensor(asensor.parent,asensor)
+		elseif asensor.sensortype == "DaylightSensor" then
+			glob.sensors[i] = DaylightSensor(asensor.parent,asensor)
+		end
+	end
+	
+	for i,anactuator in pairs(glob.actuators) do
+--		debugLog("Loaded actuator: " .. i .. " - " .. serpent.dump(anactuator))
+
+		if anactuator.sensortype == "Actuator" then
+			--glob.actuators[i] = Actuator(anactuator.parent,anactuator)
+		elseif anactuator.sensortype == "ElectricalActuator" then
+			glob.actuators[i] = ElectricalActuator(anactuator.parent,anactuator)
 		end
 	end
 end
@@ -70,6 +88,9 @@ function ontick(event)
 	for i,asensor in pairs(glob.sensors) do	
 --		debugLog("Checking sensor: " .. i .. " - " .. serpent.dump(asensor))
 		asensor:updateSensor()
+	end
+	for i,anactuator in pairs(glob.actuators) do	
+		anactuator:updateSensor()
 	end
 end
 
@@ -84,6 +105,8 @@ function onbuiltentity(event)
 		table.insert(glob.sensors, StandingRailSensor(entity))
 	elseif entity.name == "daylight-sensor" then
 		table.insert(glob.sensors, DaylightSensor(entity))
+	elseif entity.name == "electrical-actuator" then
+		table.insert(glob.actuators, ElectricalActuator(entity))
 	end
 end
 
@@ -101,7 +124,7 @@ function onentityremoved(event)
 end
 
 function isKnownSensor(entity_name)
-	debugLog("Registered sensor names: " .. serpent.dump(glob.sensorNames))
+--	debugLog("Registered sensor names: " .. serpent.dump(glob.sensorNames))
 	if( glob.sensorNames ~= nil and glob.sensorNames[entity_name] ~= nil ) then
 		return true
 	end

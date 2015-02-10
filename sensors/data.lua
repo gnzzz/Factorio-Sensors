@@ -24,3 +24,9 @@ require("prototypes.entity.daylight-sensor.entities")
 require("prototypes.item.daylight-sensor.items")
 require("prototypes.recipe.daylight-sensor.recipes")
 require("prototypes.tech.daylight-sensor.tech")
+
+--Electrical Actuator
+require("prototypes.entity.electrical-actuator.entities")
+require("prototypes.item.electrical-actuator.items")
+require("prototypes.recipe.electrical-actuator.recipes")
+require("prototypes.tech.electrical-actuator.tech")

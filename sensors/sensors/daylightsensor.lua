@@ -27,7 +27,7 @@ DaylightSensor = class(Sensor, function (class,parent,data)
 end)
 
 function DaylightSensor:updateSensor()
-	debugLog("Updating daylight sensor")
+--	debugLog("Updating daylight sensor")
 
 	Sensor:emptyProxy(self)
 	self:addToProxy("light-amount",math.floor(game.darkness*100))
