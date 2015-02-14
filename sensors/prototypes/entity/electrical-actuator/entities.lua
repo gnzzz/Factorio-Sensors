@@ -72,7 +72,10 @@ data:extend(
         filename = "__Sensors__/graphics/trans.png",
         priority = "extra-high",
         width = 0,
-        height = 0
+        height = 0,
+        axially_symmetrical = false,
+        direction_count = 4,
+        shift = {1.4, -1.0}
       }
     },
     programmable = true,
@@ -100,7 +103,7 @@ data:extend(
     supply_area_distance = 3.5,
     pictures =
     {
-      filename = "__Sensors__/graphics/electrical-actuator/electrical-actuator.png",
+      filename = "__Sensors__/graphics/electrical-actuator/electrical-actuator-base.png",
       priority = "high",
       width = 136,
       height = 122,
