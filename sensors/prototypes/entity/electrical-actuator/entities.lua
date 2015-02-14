@@ -10,8 +10,8 @@ data:extend(
     max_health = 40,
     collision_box = {{0, 0}, {0, 0}},
     selection_box = {{-0.4, -0.35}, {0.4, 0.45}},
-    pickup_position = {0, 1},
-    insert_position = {0, 1},
+    pickup_position = {0, 0},
+    insert_position = {0, 0},
     energy_per_movement = 1,
     energy_per_rotation = 1,
     energy_source =
