@@ -28,13 +28,13 @@ data:extend(
     {
       shadow =
       {
-        red = {0.7, -0.3},
-        green = {0.7, -0.3}
+        red = {0.0, 0.0},
+        green = {0.0, 0.0}
       },
       wire =
       {
-        red = {-0.8, -0.8},
-        green = {-0.8, -0.8}
+        red = {0.0, 0.0},
+        green = {0.0, 0.0}
       }
     }
   },
@@ -57,7 +57,7 @@ data:extend(
     light = {intensity = 0.1, size = 40},
     picture_off =
     {
-      filename = "__base__/graphics/entity/small-lamp/small-lamp.png",
+      filename = "__Sensors__/graphics/daylight-sensor/daylight-sensor.png",
       priority = "high",
       width = 83,
       height = 75,
@@ -65,7 +65,7 @@ data:extend(
     },
     picture_on =
     {
-      filename = "__base__/graphics/entity/small-lamp/small-lamp.png",
+      filename = "__Sensors__/graphics/daylight-sensor/daylight-sensor.png",
       priority = "high",
       width = 83,
       height = 75,
